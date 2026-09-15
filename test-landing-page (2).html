@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIOT 테스트 경유페이지</title>
+
+<!-- ============================================= -->
+<!-- 1) 여기 픽셀 ID만 실제 값으로 바꿔주세요        -->
+<!-- ============================================= -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+
+  fbq('init', '1542339390718668');
+  fbq('track', 'PageView');
+</script>
+<noscript>
+  <img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=1542339390718668&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Meta Pixel Code -->
+
+<style>
+  body {
+    font-family: -apple-system, "Malgun Gothic", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+    background: #f7f7f8;
+    text-align: center;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+  p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+  #buyBtn {
+    background: #FF9900;
+    color: #111;
+    border: none;
+    padding: 16px 32px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  #buyBtn:active {
+    opacity: 0.85;
+  }
+  #status {
+    margin-top: 16px;
+    font-size: 12px;
+    color: #999;
+  }
+</style>
+</head>
+<body>
+
+  <h1>SIOT Matcha Gua Sha</h1>
+  <p>아마존에서 지금 확인해보세요</p>
+
+  <button id="buyBtn">Amazon에서 구매하기</button>
+  <div id="status"></div>
+
+  <script>
+    // ============================================= 
+    // 2) 아래 두 값을 실제 값으로 바꿔주세요
+    // =============================================
+    var AMAZON_URL = "https://www.amazon.com/SIOT-Matcha-Catechin-Body-Cream/dp/B0HDXTYDNX"; // 실제 아마존 상품 링크
+    var PRODUCT_SKU = "SIOT-MG-001"; // 상품 식별용 SKU
+
+    document.getElementById('buyBtn').addEventListener('click', function (e) {
+      e.preventDefault();
+      document.getElementById('status').innerText = '이동 중...';
+
+      // 결제 시작 이벤트 fire
+      fbq('track', 'InitiateCheckout', {
+        content_ids: [PRODUCT_SKU],
+        content_type: 'product',
+        currency: 'USD'
+      });
+
+      // 픽셀 요청이 전송될 시간을 확보한 뒤 이동
+      setTimeout(function () {
+        window.location.href = AMAZON_URL;
+      }, 300);
+    });
+  </script>
+
+</body>
+</html>
